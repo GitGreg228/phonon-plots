@@ -20,8 +20,8 @@ def main():
     parser.add_argument('--path', type=str, default='.', help='Path to investigate')
     parser.add_argument('--poscar', type=str, default='POSCAR', help='POSCAR file to open')
     parser.add_argument('--fs', type=int, default=20, help='fontsize')
-    parser.add_argument('--width', type=int, default=16, help='image width')
-    parser.add_argument('--height', type=int, default=8, help='image height')
+    parser.add_argument('--width', type=int, default=12, help='image width')
+    parser.add_argument('--height', type=int, default=6, help='image height')
     args = parser.parse_args()
 
     with open(os.path.join(args.path, 'qpoints.yaml'), 'r') as f:
@@ -67,7 +67,7 @@ def main():
     new_ticks['label'][-1] = new_ticks['label'][-1] + r'$\mid 0$'
 
     font = {'weight': 'normal',
-            'size': args.fs}
+            'size': 20}
     mpl.rc('font', **font)
 
     fig = plt.figure(figsize=(args.width, args.height))
@@ -80,7 +80,7 @@ def main():
         for j, freq in enumerate(data['frequency'][i]):
             ax0.plot(data['distances'][i], freq, color='steelblue', zorder=0, linewidth=1)
     ax0.set_xticks(new_ticks['distance'])
-    ax0.set_xticklabels(new_ticks['label'])
+    ax0.set_xticklabels(new_ticks['label'], fontsize=args.fs)
     ax0.autoscale(enable=True, axis='x', tight=True)
     ylim = np.max(data['frequency']) * 1.05
     ax0.vlines(new_ticks['distance'], 0, ylim, color='k', linestyle='--', zorder=1, linewidth=1)
