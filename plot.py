@@ -19,6 +19,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--path', type=str, default='.', help='Path to investigate')
     parser.add_argument('--poscar', type=str, default='POSCAR', help='POSCAR file to open')
+    parser.add_argument('--fs', type=int, default=20, help='fontsize')
+    parser.add_argument('--width', type=int, default=16, help='image width')
+    parser.add_argument('--height', type=int, default=8, help='image height')
     args = parser.parse_args()
 
     with open(os.path.join(args.path, 'qpoints.yaml'), 'r') as f:
@@ -64,10 +67,10 @@ def main():
     new_ticks['label'][-1] = new_ticks['label'][-1] + r'$\mid 0$'
 
     font = {'weight': 'normal',
-            'size': 20}
+            'size': args.fs}
     mpl.rc('font', **font)
 
-    fig = plt.figure(figsize=(12, 6))
+    fig = plt.figure(figsize=(args.width, args.height))
     gs = gridspec.GridSpec(1, 2, width_ratios=[3, 1])
     gs.update(wspace=0, hspace=0)
     ax0 = plt.subplot(gs[0])
