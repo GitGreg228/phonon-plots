@@ -3,6 +3,7 @@ from pymatgen.symmetry.kpath import KPathSeek, KPathBase, KPathSetyawanCurtarolo
 from pymatgen.phonon.bandstructure import PhononBandStructureSymmLine
 from pymatgen.phonon.plotter import PhononBSPlotter
 from pymatgen.io.phonopy import get_ph_bs_symm_line_from_dict
+from tqdm import tqdm
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -56,10 +57,11 @@ def main():
             'size': 15}
     mpl.rc('font', **font)
 
+    print('Plotting phonon bands ...')
     plt.figure(figsize=(8, 6))
-    for i, dist in enumerate(data['distances']):
+    for i in tqdm(range(len(data['distances']))):
         for j, freq in enumerate(data['frequency'][i]):
-            plt.plot(dist, freq, color='steelblue', zorder=0)
+            plt.plot(data['distances'][i], freq, color='steelblue', zorder=0)
     plt.xticks(new_ticks['distance'], labels=new_ticks['label'])
     plt.autoscale(enable=True, axis='x', tight=True)
     ylim = np.max(data['frequency']) * 1.05
