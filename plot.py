@@ -51,8 +51,8 @@ def main():
                     sep = list()
                     for qpoint in split:
                         if qpoint == 'GAMMA':
-                            qpoint = r'$\Gamma$'
-                        if '_' in qpoint:
+                            qpoint = r'\Gamma'
+                        elif '_' in qpoint:
                             new_split = qpoint.split('_')
                             sep.append(r'\mathrm{' + new_split[0] + r'}_{' + new_split[1] + r'}')
                         else:
