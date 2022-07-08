@@ -1,15 +1,10 @@
-from pymatgen.core.structure import Structure
-from pymatgen.symmetry.kpath import KPathSeek, KPathBase, KPathSetyawanCurtarolo
-from pymatgen.phonon.bandstructure import PhononBandStructureSymmLine
-from pymatgen.phonon.plotter import PhononBSPlotter
-from pymatgen.io.phonopy import get_ph_bs_symm_line_from_dict
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import numpy as np
-import json
 import argparse
 import os
+
+import numpy as np
 import yaml
+from pymatgen.core.structure import Structure
+from pymatgen.symmetry.kpath import KPathSeek
 
 
 def main():

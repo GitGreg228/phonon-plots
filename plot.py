@@ -1,18 +1,14 @@
-from pymatgen.core.structure import Structure
-from pymatgen.symmetry.kpath import KPathSeek, KPathBase, KPathSetyawanCurtarolo
-from pymatgen.phonon.bandstructure import PhononBandStructureSymmLine
-from pymatgen.phonon.plotter import PhononBSPlotter
-from pymatgen.phonon.dos import CompletePhononDos
-from pymatgen.io.phonopy import get_ph_bs_symm_line_from_dict
-from tqdm import tqdm
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from matplotlib import gridspec
-import numpy as np
-import json
 import argparse
 import os
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 import yaml
+from matplotlib import gridspec
+from pymatgen.io.phonopy import get_ph_bs_symm_line_from_dict
+from pymatgen.phonon.plotter import PhononBSPlotter
+from tqdm import tqdm
 
 
 def main():
@@ -94,7 +90,7 @@ def main():
     plt.setp(ax1.get_yticklabels(), visible=False)
 
     ax1.fill(dos[1], dos[0], dos[1], np.zeros(dos[1].shape), facecolor='lightsteelblue', edgecolor='steelblue')
-    ticks = np.array([np.round(np.max(dos[1])/2), 2*np.round(np.max(dos[1])/2)])
+    ticks = np.array([np.round(np.max(dos[1]) / 2), 2 * np.round(np.max(dos[1]) / 2)])
     ax1.set_xticks(ticks)
     ax1.set_xlim(0)
     ax1.set_xlabel('Phonon DOS')
