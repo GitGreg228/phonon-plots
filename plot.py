@@ -43,6 +43,8 @@ def main():
             old_label = data['ticks']['label'][i].replace('$', '')
             if old_label == 'GAMMA':
                 new_label = r'$\Gamma$'
+            if old_label == 'SIGMA':
+                new_label = r'$\Sigma$'
             else:
                 if r'\mid' in old_label:
                     new_ticks['sep_distance'].append(_dist)
@@ -51,6 +53,8 @@ def main():
                     for qpoint in split:
                         if qpoint == 'GAMMA':
                             qpoint = r'\Gamma'
+                        if qpoint == 'SIGMA':
+                            qpoint = r'\Sigma'
                         elif '_' in qpoint:
                             new_split = qpoint.split('_')
                             sep.append(r'\mathrm{' + new_split[0] + r'}_{' + new_split[1] + r'}')
@@ -95,7 +99,7 @@ def main():
     ax1.set_xlim(0)
     ax1.set_xlabel('Phonon DOS')
     fig.tight_layout()
-    fig.savefig(os.path.join(args.path, 'band.pdf'))
+    fig.savefig(os.path.join(args.path, 'band.pdf'), bbox_inches='tight')
 
 
 if __name__ == '__main__':
