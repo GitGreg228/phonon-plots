@@ -41,21 +41,19 @@ def main():
         if _dist not in new_ticks['distance']:
             new_ticks['distance'].append(_dist)
             old_label = data['ticks']['label'][i].replace('$', '')
-            if old_label == 'GAMMA':
-                new_label = r'$\Gamma$'
-            if old_label == 'SIGMA':
-                new_label = r'$\Sigma$'
+            if 'GAMMA' == old_label or 'SIGMA' == old_label:
+                new_label = r'$' + old_label.replace('GAMMA', r'\Gamma').replace('SIGMA', r'\Sigma') + r'$'
             else:
                 if r'\mid' in old_label:
                     new_ticks['sep_distance'].append(_dist)
                     split = old_label.split(r'\mid')
                     sep = list()
                     for qpoint in split:
-                        if qpoint == 'GAMMA':
-                            qpoint = r'\Gamma'
-                        if qpoint == 'SIGMA':
-                            qpoint = r'\Sigma'
-                        elif '_' in qpoint:
+                        if 'GAMMA' in qpoint:
+                            qpoint = qpoint.replace('GAMMA', r'\Gamma')
+                        if 'SIGMA' in qpoint:
+                            qpoint = qpoint.replace('SIGMA', r'\Sigma')
+                        if '_' in qpoint:
                             new_split = qpoint.split('_')
                             sep.append(r'\mathrm{' + new_split[0] + r'}_{' + new_split[1] + r'}')
                         else:
@@ -65,6 +63,7 @@ def main():
                     new_label = r'$\mathrm{' + old_label + r'}$'
             new_ticks['label'].append(new_label)
     new_ticks['label'][-1] = new_ticks['label'][-1] + r'$\mid 0$'
+    print(new_ticks['label'])
 
     font = {'weight': 'normal',
             'size': 20}
