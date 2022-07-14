@@ -98,7 +98,7 @@ def main():
     ax1.set_xlim(0)
     ax1.set_xlabel('Phonon DOS')
     fig.tight_layout()
-    fig.savefig(os.path.join(args.path, 'band.pdf'), bbox_inches='tight')
+    fig.savefig(os.path.join(args.path, 'phonon_band.pdf'), bbox_inches='tight')
 
 
 if __name__ == '__main__':
