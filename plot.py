@@ -63,7 +63,6 @@ def main():
                     new_label = r'$\mathrm{' + old_label + r'}$'
             new_ticks['label'].append(new_label)
     new_ticks['label'][-1] = new_ticks['label'][-1] + r'$\mid 0$'
-    print(new_ticks['label'])
 
     font = {'weight': 'normal',
             'size': 20}
