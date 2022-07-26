@@ -4,7 +4,18 @@ import os
 import numpy as np
 import yaml
 from pymatgen.core.structure import Structure
+from pymatgen.core.sites import PeriodicSite
 from pymatgen.symmetry.kpath import KPathSeek
+
+
+def read_structure(path):
+    with open(os.path.join(path, 'phonopy_disp.yaml'), 'r') as f:
+        struc = yaml.load(f, Loader=yaml.FullLoader)['unit_cell']
+    lattice = struc['lattice']
+    sites = list()
+    for point in struc['points']:
+        sites.append(PeriodicSite(species=point['symbol'], coords=point['coordinates'], lattice=lattice))
+    return Structure.from_sites(sites)
 
 
 def main():
@@ -13,7 +24,12 @@ def main():
     parser.add_argument('--poscar', type=str, default='POSCAR', help='POSCAR file to open')
     args = parser.parse_args()
 
-    s = Structure.from_file(os.path.join(args.path, args.poscar))
+    if os.path.isfile(os.path.join(args.path, 'phonopy_disp.yaml')):
+        print(f"Reading structure from {os.path.join(args.path, 'phonopy_disp.yaml')}")
+        s = read_structure(args.path)
+    else:
+        print(f"Reading structure from {os.path.join(args.path, args.poscar)}")
+        s = Structure.from_file(os.path.join(args.path, args.poscar))
     k = KPathSeek(s, symprec=0.2)
     qpoints = k.kpath['kpoints']
     for qpoint in qpoints.keys():
